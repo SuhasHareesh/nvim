@@ -110,7 +110,31 @@ return {
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
     local servers = {
-      -- clangd = {},
+      ['clangd'] = {
+        cmd = {
+          'clangd',
+          '--background-index',
+          '--clang-tidy',
+          '--header-insertion=never',
+          '--all-scopes-completion',
+          '--completion-style=detailed',
+          '--pch-storage=memory',
+          '--suggest-missing-includes',
+          '--compile-commands-dir=.',
+        },
+        init_options = {
+          fallbackFlags = {
+            '-std=c++20',
+            '-I./include',
+            '-Iinclude',
+            '-I/usr/include',
+            '-I/usr/local/include',
+          },
+        },
+      },
+
+      ['zls'] = {},
+      ['ts_ls'] = {},
       -- gopls = {},
       -- pyright = {},
       -- rust_analyzer = {},
