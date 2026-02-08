@@ -4,6 +4,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
   branch = '0.1.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope-file-browser.nvim',
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'make',
@@ -23,8 +24,11 @@ return { -- Fuzzy Finder (files, lsp, etc)
       },
     }
 
-    pcall(require('telescope').load_extension, 'fzf')
-    pcall(require('telescope').load_extension, 'ui-select')
+    local telescope = require 'telescope'
+
+    pcall(telescope.load_extension, 'fzf')
+    pcall(telescope.load_extension, 'ui-select')
+    pcall(telescope.load_extension, 'file_browser')
 
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
@@ -47,11 +51,17 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
     -- Search files starting from the directory of the current file
     vim.keymap.set('n', '<leader>pv', function()
-      builtin.find_files {
+      telescope.extensions.file_browser.file_browser {
+        path = '%:p:h', -- Open where your current file is
         cwd = vim.fn.expand '%:p:h',
-        hidden = true, -- if you want to see .env, .gitignore etc.
+        respect_gitignore = false,
+        hidden = true,
+        grouped = true,
+        previewer = false,
+        initial_mode = 'normal',
+        layout_config = { height = 40 },
       }
-    end, { desc = 'Project View (current file directory)' })
+    end, { desc = 'Open File Browser' })
 
     -- It's also possible to pass additional configuration options.
     --  See `:help telescope.builtin.live_grep()` for information about particular keys
