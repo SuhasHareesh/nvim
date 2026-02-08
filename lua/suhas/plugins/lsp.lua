@@ -132,7 +132,7 @@ return {
       --     },
       --   },
       -- },
-      pyright = {},
+      -- pyright = {},
       zls = {},
       ts_ls = {},
       gopls = {},

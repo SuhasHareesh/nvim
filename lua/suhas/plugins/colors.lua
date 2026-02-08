@@ -36,14 +36,14 @@ return {
     require('kanagawa').setup {
       compile = false,
       undercurl = true,
-      commentStyle = { italic = false },
+      commentStyle = { italic = true },
       functionStyle = {},
       keywordStyle = { bold = true, italic = false },
       statementStyle = { bold = true },
       typeStyle = {},
       transparent = false,
       dimInactive = false,
-      terminalColors = true,
+      terminalColors = false,
       colors = { -- add/modify theme and palette colors
         palette = {},
         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },

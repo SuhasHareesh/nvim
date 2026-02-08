@@ -45,6 +45,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
       })
     end, { desc = '[/] Fuzzily search in current buffer' })
 
+    -- Search files starting from the directory of the current file
+    vim.keymap.set('n', '<leader>pv', function()
+      builtin.find_files {
+        cwd = vim.fn.expand '%:p:h',
+        hidden = true, -- if you want to see .env, .gitignore etc.
+      }
+    end, { desc = 'Project View (current file directory)' })
+
     -- It's also possible to pass additional configuration options.
     --  See `:help telescope.builtin.live_grep()` for information about particular keys
     vim.keymap.set('n', '<leader>s/', function()
